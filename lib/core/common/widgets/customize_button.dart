@@ -22,7 +22,7 @@ class CustomizeButton extends StatelessWidget {
     this.backgroundColor = Colours.primary,
     this.borderColor = Colors.transparent,
     this.borderRadius = 8.0,
-    this.fontSize = 16.0,
+    this.fontSize = 14.0,
     this.padding = const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
     this.elevation = 2.0,
     this.width,

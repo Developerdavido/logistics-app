@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:logistics_app/src/home/views/pages/trip_details_page.dart';
-
 import '../../../../core/common/widgets/customize_button.dart';
 import '../../../../core/res/app_strings.dart';
 import '../../../../core/res/media.dart';
