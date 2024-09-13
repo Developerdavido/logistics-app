@@ -10,4 +10,6 @@ abstract class Media {
   static const packageIcon = '$_baseIcon/package_icon.png';
   static const telephoneIcon = '$_baseIcon/telephone_icon.png';
   static const arrowDownIcon = '$_baseIcon/swap_icon.png';
+  static const editSquareIcon = '$_baseIcon/edit_square_icon.png';
+
 }

@@ -7,6 +7,5 @@ abstract class Colours {
   static const blackColor = Color(0xFF000000);
   static const tripTypeColor=[Color(0xFFFEF0D3), Color(0xFFFFAA00)];
   static const textColor=Color(0xFF909090);
-
-
+  static const greenColor=Color(0xFF6cc165);
 }
