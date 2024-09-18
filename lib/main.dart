@@ -5,6 +5,11 @@ import 'package:logistics_app/core/utils/helpers/cache_helper.dart';
 import 'package:logistics_app/src/authentication/views/pages/otp_verification_page.dart';
 import 'package:logistics_app/src/authentication/views/pages/sign_in_page.dart';
 import 'package:logistics_app/src/authentication/views/pages/sign_up_page.dart';
+import 'package:logistics_app/src/home/views/pages/complete_delivery_page.dart';
+import 'package:logistics_app/src/home/views/pages/confirm_pickup_page.dart';
+import 'package:logistics_app/src/home/views/pages/start_trip_page.dart';
+import 'package:logistics_app/src/home/views/pages/trip_details_page.dart';
+import 'package:logistics_app/src/home/views/pages/trip_overview_page.dart';
 import 'package:logistics_app/src/onboarding/views/pages/onboarding_page.dart';
 import 'package:logistics_app/src/splash/views/pages/splash_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -44,6 +49,11 @@ class App extends StatelessWidget {
         OtpVerificationPage.path: (_) => const OtpVerificationPage(),
         SignInPage.path: (_) => const SignInPage(),
         SignUpPage.path: (_) => const SignUpPage(),
+        TripOverviewPage.path: (_) => const TripOverviewPage(),
+        StartTripPage.path:(_) => const StartTripPage(),
+        ConfirmPickupPage.path: (_) => const ConfirmPickupPage(),
+        CompleteDeliveryPage.path: (_) => const CompleteDeliveryPage(),
+        TripDetailsPage.path: (_) => const TripDetailsPage()
       },
     );
   }
