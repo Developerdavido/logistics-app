@@ -6,7 +6,8 @@ import 'package:logistics_app/core/common/widgets/default_text.dart';
 import 'package:logistics_app/core/extensions/context_extensions.dart';
 import 'package:logistics_app/core/res/colours.dart';
 import 'package:logistics_app/core/res/media.dart';
-import 'package:logistics_app/src/authentication/views/pages/otp_verification_page.dart';
+import 'package:logistics_app/core/utils/helpers/cache_helper.dart';
+import 'package:logistics_app/src/authentication/views/pages/sign_in_page.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});
@@ -46,12 +47,10 @@ class OnboardingPage extends StatelessWidget {
             ),
             const Spacer(flex: 6),
             FilledButton(
-              style: FilledButton.styleFrom(
-                minimumSize: const Size(double.infinity, 50),
-                padding: const EdgeInsets.symmetric(vertical: 25),
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, OtpVerificationPage.path);
+              onPressed: () async {
+                final navigator = Navigator.of(context);
+                await CacheHelper.instance.cacheFirstTimer();
+                navigator.pushReplacementNamed(SignInPage.path);
               },
               child: const DefaultText(
                 'Get Started',
