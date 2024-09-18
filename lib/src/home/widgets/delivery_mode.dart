@@ -34,7 +34,7 @@ class DeliveryMode extends StatelessWidget {
             ),
           DefaultText(
             deliveryType,
-            color: colorForTimeStamp ? Colours.textColor : Colours.primary,
+            color:  Colours.primary,
           ),
           const SizedBox(height: 10),
           Text(address, softWrap: true),

@@ -6,6 +6,7 @@ import 'package:logistics_app/core/extensions/context_extensions.dart';
 import 'package:logistics_app/core/res/colours.dart';
 import 'package:logistics_app/src/authentication/views/pages/sections/sign_in_form.dart';
 import 'package:logistics_app/src/authentication/views/pages/sign_up_page.dart';
+import 'package:logistics_app/src/home/views/pages/trip_overview_page.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -98,7 +99,9 @@ class _SignInPageState extends State<SignInPage> {
               ),
               FilledButton(
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) {}
+                  if (_formKey.currentState!.validate()) {
+                    Navigator.of(context).pushReplacementNamed(TripOverviewPage.path);
+                  }
                 },
                 child: const Text('Sign In'),
               ),
