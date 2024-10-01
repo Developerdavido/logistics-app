@@ -4,6 +4,7 @@ import 'package:logistics_app/core/res/colours.dart';
 import 'package:logistics_app/src/authentication/views/pages/otp_verification_page.dart';
 import 'package:logistics_app/src/authentication/views/pages/sign_in_page.dart';
 import 'package:logistics_app/src/authentication/views/pages/sign_up_page.dart';
+import 'package:logistics_app/src/changeRiderPassword/views/pages/change_password_page.dart';
 import 'package:logistics_app/src/home/views/pages/trip_overview_page.dart';
 import 'package:logistics_app/src/onboarding/views/pages/onboarding_page.dart';
 import 'package:logistics_app/src/splash/views/pages/splash_page.dart';
@@ -47,6 +48,7 @@ class App extends StatelessWidget {
         SignInPage.path: (_) => const SignInPage(),
         SignUpPage.path: (_) => const SignUpPage(),
         TripOverviewPage.path: (_) => const TripOverviewPage(),
+        ChangePasswordPage.path:(_)=> const ChangePasswordPage(),
       },
     );
   }
