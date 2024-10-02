@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:logistics_app/core/common/widgets/customize_button.dart';
-import 'package:logistics_app/core/common/widgets/profile_details.dart';
 import 'package:logistics_app/core/res/media.dart';
 import 'package:logistics_app/src/changeRiderPassword/views/pages/section/change_password_form.dart';
+import '../../../../core/common/widgets/profile_details.dart';
+
 
 class ChangePasswordPage extends StatefulWidget {
   const ChangePasswordPage({super.key});
