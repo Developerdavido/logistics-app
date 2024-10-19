@@ -3,14 +3,14 @@ import 'package:google_fonts/google_fonts.dart';
 
 class DefaultText extends StatelessWidget {
   const DefaultText(
-    this.data, {
-    super.key,
-    this.fontSize,
-    this.fontWeight,
-    this.fontFamily,
-    this.color,
-    this.letterSpacing,
-  });
+      this.data, {
+        super.key,
+        this.fontSize,
+        this.fontWeight,
+        this.fontFamily,
+        this.color,
+        this.letterSpacing,
+      });
 
   final double? fontSize;
   final FontWeight? fontWeight;
@@ -25,18 +25,18 @@ class DefaultText extends StatelessWidget {
       data,
       style: fontFamily != null
           ? GoogleFonts.getFont(
-              fontFamily!,
-              fontSize: fontSize,
-              fontWeight: fontWeight,
-              color: color,
-              letterSpacing: letterSpacing,
-            )
+        fontFamily!,
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        color: color,
+        letterSpacing: letterSpacing,
+      )
           : GoogleFonts.poppins(
-              fontSize: fontSize,
-              fontWeight: fontWeight,
-              color: color,
-              letterSpacing: letterSpacing,
-            ),
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        color: color,
+        letterSpacing: letterSpacing,
+      ),
     );
   }
 }

@@ -6,6 +6,8 @@ import 'package:logistics_app/src/authentication/views/pages/sign_in_page.dart';
 import 'package:logistics_app/src/authentication/views/pages/sign_up_page.dart';
 import 'package:logistics_app/src/home/views/pages/trip_overview_page.dart';
 import 'package:logistics_app/src/onboarding/views/pages/onboarding_page.dart';
+import 'package:logistics_app/src/riderProfilePage/views/pages/rider_profile_page.dart';
+import 'package:logistics_app/src/riderProfilePage/views/pages/rider_profile_reset_page.dart';
 import 'package:logistics_app/src/splash/views/pages/splash_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -47,6 +49,8 @@ class App extends StatelessWidget {
         SignInPage.path: (_) => const SignInPage(),
         SignUpPage.path: (_) => const SignUpPage(),
         TripOverviewPage.path: (_) => const TripOverviewPage(),
+        RiderProfilePage.path:(_)=> const RiderProfilePage(),
+        RiderProfileResetPage.path:(_)=> const RiderProfileResetPage(),
       },
     );
   }

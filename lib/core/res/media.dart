@@ -11,5 +11,11 @@ abstract class Media {
   static const telephoneIcon = '$_baseIcon/telephone_icon.png';
   static const arrowDownIcon = '$_baseIcon/swap_icon.png';
   static const editSquareIcon = '$_baseIcon/edit_square_icon.png';
-
+  static const lineIcon = '$_baseIcon/line_icon.png';
+  static const logoutIcon = '$_baseIcon/logout_icon.png';
+  static const lockIcon = '$_baseIcon/lock_icon.png';
+  static const profileSettingIcon = '$_baseIcon/profile_setting_icon.png';
+  static const shieldIcon = '$_baseIcon/sheild_icon.png';
+  static const chatIcon = '$_baseIcon/chat_icon.png';
+  static const arrowLeftIcon = '$_baseIcon/arrow_left_icon.png';
 }
