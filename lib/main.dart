@@ -8,6 +8,7 @@ import 'package:logistics_app/src/home/views/pages/trip_overview_page.dart';
 import 'package:logistics_app/src/onboarding/views/pages/onboarding_page.dart';
 import 'package:logistics_app/src/splash/views/pages/splash_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:logistics_app/src/order/screens/order_history_screen.dart'; // Import the Order History screen
 
 import 'core/utils/helpers/cache_helper.dart';
 
@@ -47,6 +48,7 @@ class App extends StatelessWidget {
         SignInPage.path: (_) => const SignInPage(),
         SignUpPage.path: (_) => const SignUpPage(),
         TripOverviewPage.path: (_) => const TripOverviewPage(),
+        OrderHistoryScreen.path: (_) => const OrderHistoryScreen()
       },
     );
   }
