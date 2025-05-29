@@ -12,4 +12,7 @@ abstract class Media {
   static const arrowDownIcon = '$_baseIcon/swap_icon.png';
   static const editSquareIcon = '$_baseIcon/edit_square_icon.png';
 
+  //Image
+  static const profileImage = '$_baseImage/profile.jpg';
+
 }

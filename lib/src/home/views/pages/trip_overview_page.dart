@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:logistics_app/core/common/mock_json.dart';
+import 'package:logistics_app/core/common/widgets/app_bar.dart';
 import 'package:logistics_app/core/common/widgets/customize_button.dart';
 import 'package:logistics_app/core/common/widgets/default_text.dart';
 import 'package:logistics_app/core/res/app_strings.dart';
@@ -28,6 +29,7 @@ class TripOverviewPage extends StatefulWidget {
 
 class _TripOverviewPageState extends State<TripOverviewPage> {
 
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int index = 0;
   Map<String, dynamic> orderStatus = {};
 
@@ -50,13 +52,19 @@ class _TripOverviewPageState extends State<TripOverviewPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        key: _scaffoldKey,
+        drawer: AppDrawer(),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children:[
-                 const RiderHomeHeader(),
+                 RiderHomeHeader(
+                   onIconTap: (){
+                     _scaffoldKey.currentState!.openDrawer();
+                   },
+                 ),
                  const SizedBox(height: 30,),
                  const Row(
                    mainAxisAlignment: MainAxisAlignment.spaceBetween,

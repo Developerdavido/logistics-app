@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CacheHelper {
@@ -33,5 +35,41 @@ class CacheHelper {
     final result = _prefs.getBool(_firstTimerKey);
 
     return result ?? false;
+  }
+
+  Future<bool> clearCache() async {
+    return _prefs.clear();
+  }
+
+  Future<void> cacheBool(String key, bool value) async {
+    await _prefs.setBool(key, value);
+  }
+
+  bool readBool(String key) {
+    final result = _prefs.getBool(key);
+    return result ?? false;
+  }
+
+  //set string values
+  Future<void> cacheString(String key, String value) async {
+    await _prefs.setString(key, value);
+  }
+
+  String? readString(String key) {
+    return _prefs.getString(key);
+  }
+
+  removeKey(String key) {
+    return _prefs.remove(key);
+  }
+
+  Future<void> cacheModel(String key, value) async {
+    var encodedValue = json.encode(value);
+    cacheString(key, encodedValue);
+  }
+
+  Future readModel(String key) async {
+    var encodedValue = readString(key);
+    return encodedValue == null ? null : json.decode(encodedValue);
   }
 }

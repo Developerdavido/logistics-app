@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:logistics_app/core/common/locator.dart';
 import 'package:logistics_app/core/res/colours.dart';
 import 'package:logistics_app/src/authentication/views/pages/otp_verification_page.dart';
 import 'package:logistics_app/src/authentication/views/pages/sign_in_page.dart';
 import 'package:logistics_app/src/authentication/views/pages/sign_up_page.dart';
 import 'package:logistics_app/src/home/views/pages/trip_overview_page.dart';
 import 'package:logistics_app/src/onboarding/views/pages/onboarding_page.dart';
+import 'package:logistics_app/src/profile/views/profile_screen.dart';
 import 'package:logistics_app/src/splash/views/pages/splash_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'core/common/app_config.dart';
 import 'core/utils/helpers/cache_helper.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  AppConfig.create(
+      appName: "Delivry",
+      baseUrl: "https://cardano-preprod.blockfrost.io/api/v0/",
+      flavor: Flavor.prod
+  );
+  setUpLocator();
   final prefs = await SharedPreferences.getInstance();
   CacheHelper.instance.init(prefs);
   runApp(const App());
@@ -47,6 +56,7 @@ class App extends StatelessWidget {
         SignInPage.path: (_) => const SignInPage(),
         SignUpPage.path: (_) => const SignUpPage(),
         TripOverviewPage.path: (_) => const TripOverviewPage(),
+        ProfileScreen.path: (_) => const ProfileScreen(),
       },
     );
   }
