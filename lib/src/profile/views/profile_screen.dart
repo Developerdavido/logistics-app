@@ -19,14 +19,14 @@ class ProfileScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Account'),
+        title: const Text('My Account'),
         actions: [
           IconButton(
-            icon: Icon(Icons.qr_code),
+            icon: const Icon(Icons.qr_code),
             onPressed: () {
               // Placeholder for QR code action
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('QR Code clicked')),
+                const SnackBar(content: Text('QR Code clicked')),
               );
             },
           ),
@@ -59,7 +59,7 @@ class ProfileScreen extends StatelessWidget {
                           color: Theme.of(context).primaryColor,
                         ),
                       ),
-                      Text(
+                      const Text(
                         '★', // Star symbol
                         style: TextStyle(
                           fontSize: 16,
