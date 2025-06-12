@@ -34,7 +34,6 @@ class NavService {
   static Widget? selectedScreen(int currentIndex) {
     List<Widget?> screens = [
       const TripOverviewPage(),
-      const TasksScreen(),
       const ProfileScreen()
     ];
     if (screens[currentIndex] != null) {
