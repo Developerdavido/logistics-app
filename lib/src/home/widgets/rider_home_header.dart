@@ -5,7 +5,7 @@ import 'package:logistics_app/core/res/media.dart';
 import '../../../core/res/colours.dart';
 
 class RiderHomeHeader extends StatelessWidget {
-  const RiderHomeHeader({super.key, this.onIconTap});
+  const RiderHomeHeader({super.key, this.onIconTap,});
 
   final VoidCallback? onIconTap;
 
@@ -40,7 +40,7 @@ class RiderHomeHeader extends StatelessWidget {
         ),
         const SizedBox(width: 20), // Space between menu icon and title
         const DefaultText(
-          AppStrings.home,
+          AppStrings.dashboard,
           fontSize: 20,
           fontWeight: FontWeight.w500,
           color: Colours.blackColor,

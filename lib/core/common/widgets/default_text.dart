@@ -9,6 +9,7 @@ class DefaultText extends StatelessWidget {
     this.fontWeight,
     this.fontFamily,
     this.color,
+        this.align,
     this.letterSpacing,
   });
 
@@ -17,6 +18,7 @@ class DefaultText extends StatelessWidget {
   final String? fontFamily;
   final Color? color;
   final String data;
+  final TextAlign? align;
   final double? letterSpacing;
 
   @override
@@ -37,6 +39,7 @@ class DefaultText extends StatelessWidget {
               color: color,
               letterSpacing: letterSpacing,
             ),
+      textAlign: align ?? TextAlign.left,
     );
   }
 }

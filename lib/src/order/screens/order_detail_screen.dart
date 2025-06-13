@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../core/common/widgets/app_bar.dart';
 import '../widgets/status_chip.dart';
-import '../../home/widgets/drawer.dart';
 
 class OrderDetailScreen extends StatelessWidget {
   final String orderId = '12347598';

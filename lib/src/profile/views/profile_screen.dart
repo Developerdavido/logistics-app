@@ -1,36 +1,45 @@
 
 import 'package:flutter/material.dart';
+import 'package:logistics_app/core/common/widgets/default_text.dart';
+import 'package:logistics_app/core/common/widgets/loader.dart';
+import 'package:logistics_app/providers/address_provider.dart';
+import 'package:logistics_app/src/authentication/views/pages/sign_in_page.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/common/widgets/app_bar.dart';
+import '../../../core/res/colours.dart';
+import '../../../core/res/media.dart';
+import '../../../providers/auth_provider.dart';
 
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
 
   static const path='/profile';
 
   const ProfileScreen({super.key});
 
   @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  AddressProvider? addressProvider;
+  AuthProvider? authVm;
+
+  @override
+  void initState() {
+    addressProvider = context.read<AddressProvider>();
+    authVm = context.read<AuthProvider>();
+    addressProvider?.fetchSpecificAddressDetails(context, authVm?.currentUser?.address);
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
-    // Update selected route in NavProvider
-
-    // Define teal color from the image (approximated)
-    const tealColor = Color(0xFF26A69A);
-
+    authVm = Provider.of<AuthProvider>(context);
+    addressProvider = context.watch<AddressProvider>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Account'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.qr_code),
-            onPressed: () {
-              // Placeholder for QR code action
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('QR Code clicked')),
-              );
-            },
-          ),
-        ],
+        title: const Text('My Profile'),
       ),
       drawer: AppDrawer(),
       body: SingleChildScrollView(
@@ -43,25 +52,25 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 40,
-                  backgroundImage: NetworkImage('https://example.com/user.jpg'),
-                  backgroundColor: Theme.of(context).primaryColor.withOpacity(0.2),
+                  backgroundImage: const AssetImage(Media.profileImage),
+                  backgroundColor: Theme.of(context).primaryColor.withValues(alpha: 0.2),
                 ),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Ali Husni',
+                        authVm?.currentUser?.name ?? "Anon",
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).primaryColor,
                         ),
                       ),
-                      const Text(
-                        '★', // Star symbol
-                        style: TextStyle(
+                      Text(
+                        authVm?.currentUser?.address ?? "N/A", // Star symbol
+                        style: const TextStyle(
                           fontSize: 16,
                           color: Colors.amber,
                         ),
@@ -71,9 +80,9 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             // Spending Overview Card
-            Card(
+            addressProvider!.loadingWalletDetails ? const Loader()  : Card(
               elevation: 4,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -84,24 +93,24 @@ class ProfileScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Spending Overview',
+                      'Amount earned',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).primaryColor,
                       ),
                     ),
-                    SizedBox(height: 8),
-                    Text(
-                      '\$12,521.10',
-                      style: TextStyle(
+                    const SizedBox(height: 8),
+                     Text(
+                      'ADA ${addressProvider?.addressAdaTokens ?? 0.00}',
+                      style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                       ),
                     ),
                     Text(
-                      'From \$20,000.00',
+                      '\$ ${addressProvider?.amountInDollars ?? 0.00}',
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.grey,
@@ -111,74 +120,19 @@ class ProfileScreen extends StatelessWidget {
                     LinearProgressIndicator(
                       value: 12521.10 / 20000.00,
                       backgroundColor: Colors.grey[300],
-                      color: tealColor,
+                      color: Colours.primary,
                       minHeight: 8,
                     ),
                     SizedBox(height: 8),
-                    Row(
-                      children: [
-                        Icon(Icons.circle, size: 12, color: Colors.black),
-                        SizedBox(width: 4),
-                        Text('Subscription'),
-                        Spacer(),
-                        Text('\$8,221.00'),
-                      ],
-                    ),
-                    SizedBox(height: 4),
-                    Row(
-                      children: [
-                        Icon(Icons.circle, size: 12, color: tealColor),
-                        SizedBox(width: 4),
-                        Text('Friend & Family'),
-                        Spacer(),
-                        Text('\$4,300.10'),
-                      ],
-                    ),
+
                   ],
                 ),
               ),
             ),
             SizedBox(height: 24),
-            // Invite Friends Section
-            Container(
-              padding: EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
-                color: tealColor,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Invite Friends',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          'Invite your friends to managing their finances and get \$100 each.',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.white70,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Icon(Icons.group_add, color: Colors.white, size: 40),
-                ],
-              ),
-            ),
-            SizedBox(height: 24),
             // Navigation Menu
             ListTile(
-              leading: Icon(Icons.person, color: tealColor),
+              leading: Icon(Icons.person, color: Colours.primary),
               title: Text('My Account'),
               trailing: Icon(Icons.chevron_right, color: Colors.grey),
               onTap: () {
@@ -186,42 +140,33 @@ class ProfileScreen extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(Icons.receipt, color: tealColor),
+              leading: Icon(Icons.receipt, color: Colours.primary),
               title: Text('Transaction History'),
               trailing: Icon(Icons.chevron_right, color: Colors.grey),
               onTap: () {
-                Navigator.pushNamed(context, '/transaction_history');
               },
             ),
             ListTile(
-              leading: Icon(Icons.security, color: tealColor),
+              leading: Icon(Icons.security, color: Colours.primary),
               title: Text('Security Settings'),
               trailing: Icon(Icons.chevron_right, color: Colors.grey),
               onTap: () {
-                Navigator.pushNamed(context, '/security_settings');
               },
             ),
             ListTile(
-              leading: Icon(Icons.settings, color: tealColor),
+              leading: Icon(Icons.settings, color: Colours.primary),
               title: Text('General Settings'),
               trailing: Icon(Icons.chevron_right, color: Colors.grey),
               onTap: () {
-                Navigator.pushNamed(context, '/general_settings');
               },
             ),
             // Bottom Navigation (Placeholder)
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Icon(Icons.home, color: tealColor),
-                  Icon(Icons.bar_chart, color: tealColor),
-                  Icon(Icons.credit_card, color: tealColor),
-                  Icon(Icons.account_circle, color: tealColor),
-                ],
-              ),
-            ),
+            const SizedBox(height: 40),
+            Center(
+              child: TextButton(onPressed: (){
+                Navigator.pushNamedAndRemoveUntil(context, SignInPage.path, (route)=> false);
+              }, child: const DefaultText("Log Out", color: Colours.redColor, fontSize: 18, fontWeight: FontWeight.w600,)),
+            )
           ],
         ),
       ),

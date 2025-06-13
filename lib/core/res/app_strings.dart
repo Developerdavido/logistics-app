@@ -3,7 +3,7 @@ class AppStrings{
   //HomePage rider Strings
   static const on='ON';
   static const off='OFF';
-  static const home='Home';
+  static const dashboard ='Dashboard';
 
   // Orders information
 static const openOrder='Open Order';

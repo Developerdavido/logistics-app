@@ -4,7 +4,9 @@ import 'package:logistics_app/core/res/app_strings.dart';
 import 'package:logistics_app/core/res/colours.dart';
 
 class OnAndOffSwitchButton extends StatefulWidget {
-  const OnAndOffSwitchButton({super.key});
+  const OnAndOffSwitchButton({super.key, required this.onChanged});
+
+  final Function(bool isOn) onChanged;
 
   @override
   State<OnAndOffSwitchButton> createState() => _OnAndOffSwitchButtonState();
@@ -33,6 +35,8 @@ class _OnAndOffSwitchButtonState extends State<OnAndOffSwitchButton> {
                 setState(() {
                   isOn = false;
                 });
+                widget.onChanged(isOn); // Call the onChanged callback with the new state)
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Location has been switched off")));
               },
             ),
             _buildSwitchButton(
@@ -42,6 +46,8 @@ class _OnAndOffSwitchButtonState extends State<OnAndOffSwitchButton> {
                 setState(() {
                   isOn = true;
                 });
+                widget.onChanged(isOn); // Call the onChanged callback with the new state)
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Location has been switched on")));
               },
             ),
           ],

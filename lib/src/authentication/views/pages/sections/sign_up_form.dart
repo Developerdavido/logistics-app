@@ -13,6 +13,7 @@ class SignUpForm extends StatefulWidget {
     required this.fullNameController,
     required this.phoneController,
     required this.countryController,
+    required this.addressController,
     required this.countryNotifier,
     super.key,
   });
@@ -24,6 +25,7 @@ class SignUpForm extends StatefulWidget {
   final TextEditingController fullNameController;
   final TextEditingController phoneController;
   final TextEditingController countryController;
+  final TextEditingController addressController;
   final ValueNotifier<Country?> countryNotifier;
 
   @override
@@ -84,6 +86,12 @@ class _SignUpFormState extends State<SignUpForm> {
             labelText: 'Email',
             controller: widget.emailController,
             keyboardType: TextInputType.emailAddress,
+          ),
+          const Gap(20),
+          InputField(
+            labelText: 'Wallet Address',
+            controller: widget.addressController,
+            keyboardType: TextInputType.text,
           ),
           const Gap(20),
           ValueListenableBuilder(

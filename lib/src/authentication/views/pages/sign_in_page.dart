@@ -7,6 +7,10 @@ import 'package:logistics_app/core/res/colours.dart';
 import 'package:logistics_app/src/authentication/views/pages/sections/sign_in_form.dart';
 import 'package:logistics_app/src/authentication/views/pages/sign_up_page.dart';
 import 'package:logistics_app/src/home/views/pages/trip_overview_page.dart';
+import 'package:provider/provider.dart';
+
+import '../../../../core/common/widgets/loader.dart';
+import '../../../../providers/auth_provider.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -21,7 +25,23 @@ class _SignInPageState extends State<SignInPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  AuthProvider? authVm;
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    authVm = context.read<AuthProvider>();
+    handleLogin();
+    super.initState();
+  }
+
+  //checkIfUserExists
+  handleLogin() async {
+    bool userExists = await authVm!.checkIfUserExists();
+    if(userExists) {
+      Navigator.of(context).pushNamedAndRemoveUntil(TripOverviewPage.path, (route)=> false);
+    }
+  }
   @override
   void dispose() {
     _emailController.dispose();
@@ -31,6 +51,7 @@ class _SignInPageState extends State<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
+    final authVm = Provider.of<AuthProvider>(context);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -39,72 +60,84 @@ class _SignInPageState extends State<SignInPage> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: Column(
+          child: Stack(
             children: [
-              Expanded(
-                child: ListView(
-                  children: [
-                    const DefaultText(
-                      'Welcome back!',
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Mulish',
-                    ),
-                    const DefaultText(
-                      'Sign in to continue',
-                      fontSize: 13,
-                      color: Colors.grey,
-                    ),
-                    const Gap(40),
-                    RichText(
-                      text: TextSpan(
-                        text: "Don't have an account? ",
-                        style: const TextStyle(color: Colors.grey),
-                        children: [
-                          TextSpan(
-                            text: 'Sign Up',
-                            style: const TextStyle(
-                              color: Colours.primary,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                Navigator.of(context).pushReplacementNamed(
-                                  SignUpPage.path,
-                                );
-                              },
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Gap(40),
-                    SignInForm(
-                      formKey: _formKey,
-                      emailController: _emailController,
-                      passwordController: _passwordController,
-                    ),
-                    const Gap(20),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        onPressed: () {},
-                        child: const DefaultText(
-                          'Forgot Password?',
-                          fontSize: 13,
+              Column(
+                children: [
+                  Expanded(
+                    child: ListView(
+                      children: [
+                        const DefaultText(
+                          'Welcome back!',
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Mulish',
                         ),
-                      ),
+                        const DefaultText(
+                          'Sign in to continue',
+                          fontSize: 13,
+                          color: Colors.grey,
+                        ),
+                        const Gap(40),
+                        RichText(
+                          text: TextSpan(
+                            text: "Don't have an account? ",
+                            style: const TextStyle(color: Colors.grey),
+                            children: [
+                              TextSpan(
+                                text: 'Sign Up',
+                                style: const TextStyle(
+                                  color: Colours.primary,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Navigator.of(context).pushReplacementNamed(
+                                      SignUpPage.path,
+                                    );
+                                  },
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Gap(40),
+                        SignInForm(
+                          formKey: _formKey,
+                          emailController: _emailController,
+                          passwordController: _passwordController,
+                        ),
+                        const Gap(20),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: TextButton(
+                            onPressed: () {},
+                            child: const DefaultText(
+                              'Forgot Password?',
+                              fontSize: 13,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  FilledButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        authVm.loginUser(context, _emailController.text.trim(), _passwordController.text.trim());
+                      }
+                    },
+                    child: const Text('Sign In'),
+                  ),
+                ],
               ),
-              FilledButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    Navigator.of(context).pushReplacementNamed(TripOverviewPage.path);
-                  }
-                },
-                child: const Text('Sign In'),
-              ),
+              Positioned(
+                  left: 0,
+                  right: 0,
+                  top: 0,
+                  bottom: 0,
+                  child: Visibility(
+                      visible: authVm.loggingInUser,
+                      child: const Loader()))
             ],
           ),
         ),

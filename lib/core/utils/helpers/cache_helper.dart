@@ -9,6 +9,8 @@ class CacheHelper {
 
   static const _firstTimerKey = 'first-timer-key';
 
+  static const loginMap = 'login_maps';
+
   late SharedPreferences _prefs;
 
   bool _isFirstTimer = true;
@@ -34,7 +36,7 @@ class CacheHelper {
   bool _checkIfUserIsFirstTimer() {
     final result = _prefs.getBool(_firstTimerKey);
 
-    return result ?? false;
+    return result ?? true;
   }
 
   Future<bool> clearCache() async {

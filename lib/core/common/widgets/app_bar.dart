@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../../providers/auth_provider.dart';
 import '../../res/media.dart';
 
 class AppDrawer extends StatelessWidget {
   final List<Map<String, dynamic>> navItems = [
     {'title': 'Dashboard', 'icon': Icons.home, 'route': '/trip_overview', 'semanticsLabel': 'Go to Dashboard'},
     {'title': 'Profile', 'icon': Icons.person, 'route': '/profile', 'semanticsLabel': 'Go to Profile'},
-    {'title': 'Settings', 'icon': Icons.settings, 'route': '/settings', 'semanticsLabel': 'Go to Settings'},
+    {'title': 'Orders', 'icon': Icons.timeline, 'route': '/orderHistoryScreen', 'semanticsLabel': 'Go to Orders'},
   ];
 
   @override
   Widget build(BuildContext context) {
+    final authVm = Provider.of<AuthProvider>(context);
     String? currentRoute = ModalRoute.of(context)?.settings.name;
     return Drawer(
       elevation: 16,
@@ -25,22 +28,22 @@ class AppDrawer extends StatelessWidget {
                   colors: [Theme.of(context).primaryColor, Theme.of(context).primaryColorDark],
                 ),
               ),
-              child: const Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 30,
                     backgroundImage: AssetImage(Media.profileImage),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
-                    'My App',
-                    style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+                    authVm.currentUser?.name ?? "",
+                    style:const  TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    'user@example.com',
-                    style: TextStyle(color: Colors.white70, fontSize: 16),
+                      authVm.currentUser?.email ?? "",
+                    style: const TextStyle(color: Colors.white70, fontSize: 16),
                   ),
                 ],
               ),

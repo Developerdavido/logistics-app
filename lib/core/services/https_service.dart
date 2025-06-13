@@ -63,9 +63,7 @@ class HttpService {
     return dio!.get(
       uri,
       options: Options(
-        headers: {
-          HttpHeaders.acceptHeader: "application/json",
-        },
+        headers: await getHeaders(),
       ),
       queryParameters: queryParameters,
     );
